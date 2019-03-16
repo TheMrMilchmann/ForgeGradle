@@ -127,7 +127,8 @@ public abstract class BaseRepo implements ArtifactProvider<ArtifactIdentifier> {
                             return repos.stream().map(repo -> repo.getArtifact(artifact)).filter(Artifact::isPresent).findFirst().orElse(Artifact.none());
                         }
                     }
-                ))
+                )),
+                project.getObjects()
             );
         }
     }

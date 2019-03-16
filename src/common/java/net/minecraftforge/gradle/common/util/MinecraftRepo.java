@@ -82,7 +82,7 @@ public class MinecraftRepo extends BaseRepo {
 
     public static void attach(Project project) {
         MinecraftRepo instance = getInstance(project);
-        GradleRepositoryAdapter.add(project.getRepositories(), "MINECRAFT_DYNAMIC", instance.getCacheRoot(), instance.repo);
+        GradleRepositoryAdapter.add(project.getRepositories(), "MINECRAFT_DYNAMIC", instance.getCacheRoot(), instance.repo, project.getObjects());
     }
 
     public static ArtifactProvider<ArtifactIdentifier> create(Project project) {
