@@ -20,16 +20,7 @@
 
 package net.minecraftforge.gradle.userdev.tasks;
 
-import com.google.common.collect.Sets;
-import org.gradle.api.internal.OverlappingOutputs;
-import org.gradle.api.internal.TaskExecutionHistory;
-import org.gradle.api.internal.tasks.OriginTaskExecutionMetadata;
 import org.gradle.api.tasks.compile.JavaCompile;
-
-import java.io.File;
-import java.util.Set;
-
-import javax.annotation.Nullable;
 
 // A terrible hack to use JavaCompile while bypassing
 // Gradle's normal task infrastructure.
@@ -48,27 +39,7 @@ public class HackyJavaCompile extends JavaCompile {
 
         // Normally, the output history is set by Gradle. Since we're bypassing
         // the normal gradle task infrastructure, we need to do it ourselves.
-        this.getOutputs().setHistory(new TaskExecutionHistory() {
-
-            @Override
-            public Set<File> getOutputFiles() {
-                // We explicitly clear the output directory
-                // ourselves, so it's okay that this is totally wrong.
-                return Sets.newHashSet();
-            }
-
-            @Nullable
-            @Override
-            public OverlappingOutputs getOverlappingOutputs() {
-                return null;
-            }
-
-            @Nullable
-            @Override
-            public OriginTaskExecutionMetadata getOriginExecutionMetadata() {
-                return null;
-            }
-        });
+        this.getOutputs().setPreviousOutputFiles(this.getProject().files());
 
         // Do the actual compilation,
         // bypassing a bunch of Gradle's other stuff (e.g. internal event listener mechanism)
