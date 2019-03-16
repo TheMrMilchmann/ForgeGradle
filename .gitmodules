@@ -1,0 +1,3 @@
+[submodule "deps/Artifactural"]
+	path = deps/Artifactural
+	url = https://github.com/MinecraftForge/Artifactural
